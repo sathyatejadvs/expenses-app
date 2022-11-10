@@ -11,16 +11,16 @@
 }
 .time-with-title {
   display: flex;
+  flex: 1;
 }
 .expense-date-container {
   border-radius: 8px;
   box-shadow: 0 2px 8px #fff;
   color: white;
   padding: 8px;
-  width: 50%;
   text-align: center;
   background-color: rgba(54, 51, 51, 0.773);
-  flex: 1;
+  flex: 0.1;
 
 }
 .expense-item__description {
@@ -32,6 +32,7 @@
   margin-left: 1em;
   font-size: 18px;
   font-weight: bold;
+  flex: 1;
 }
 .expense-month {
   font-weight: bold;

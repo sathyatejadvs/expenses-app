@@ -37,3 +37,14 @@
     transform: rotate(360deg);
   }
 }
+
+.expense-container__filter-expenses {
+  margin-top: 12px;
+  background-color: black;
+  border-radius: 8px;
+  padding: 8px;
+}
+.no-content-found {
+  color: white;
+  text-align: center;
+}

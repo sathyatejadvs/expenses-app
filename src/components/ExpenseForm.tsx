@@ -1,23 +1,31 @@
 import { useState } from 'react';
 import './ExpenseForm.css';
 
-const ExpenseForm = (props: { onAddExpense: (arg0: { id: string; title: string; amount: string; date: undefined; }) => void; }) => {
+type ExpenseFormProps = {
+  onAddExpense: (arg0: { 
+    id: string; title: string; amount: string; date: undefined; 
+  }) => void; 
+}
+
+const ExpenseForm = (props: ExpenseFormProps) => {
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [date, setDate] = useState();
 
   const onFormSubmitHandler = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
-    props.onAddExpense({
-      id: Math.random().toString(),
-      title: title,
-      amount: amount,
-      date: date,
-    })
+    if (title && amount && date) {
+      props.onAddExpense({
+        id: Math.random().toString(),
+        title: title,
+        amount: amount,
+        date: date,
+      })
+      setTitle('')
+      setAmount('')
+      setDate(undefined)
+    }
 
-    setTitle('')
-    setAmount('')
-    setDate(undefined)
   }
 
   const onTextChangeHandler = (event: any, title: string) => {
@@ -30,7 +38,7 @@ const ExpenseForm = (props: { onAddExpense: (arg0: { id: string; title: string; 
     }
   }
   return (
-    <form onSubmit={onFormSubmitHandler}>
+    <form onSubmit={onFormSubmitHandler} className='new-expense__form-container'>
       <div className='new-expense__controls'>
         <div className='new-expense__control'>
           <label>Title</label>
@@ -42,11 +50,11 @@ const ExpenseForm = (props: { onAddExpense: (arg0: { id: string; title: string; 
         </div>
         <div className='new-expense__control'>
           <label>Date</label>
-          <input type='date' min='2019-01-01' max='2022-12-31' value={date} onChange={event => onTextChangeHandler(event, 'date')}/>
+          <input type='date' min='2012-01-01' max='2022-12-31' value={date} onChange={event => onTextChangeHandler(event, 'date')}/>
         </div>
       </div>
       <div className='new-expense__actions'>
-        <button type='submit'>Add Expense</button>
+        <button type='submit' className='new-expense__submit'>Add Expense</button>
       </div>
     </form>
   );
