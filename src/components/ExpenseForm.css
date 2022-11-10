@@ -29,7 +29,9 @@
 }
 
 .new-expense__actions {
-  text-align: right;
+  justify-content: center;
+  display: flex;
+  gap: 50px;
 }
 
 .new-expense__submit {
@@ -38,5 +40,13 @@
   font-size: 14px;
   font-weight: bold;
   padding: 16px;
-  border-radius: 6px;
+  border-radius: 8px;
+  width: 17%;
+}
+.new-expense__add-expense__button-container {
+  background-color: rgb(167, 121, 210);
+  padding: 38px;
+  border-radius: 8px;
+  margin-bottom: 36px;
+  text-align: center;
 }

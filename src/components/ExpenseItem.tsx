@@ -1,4 +1,3 @@
-import React, {useState} from "react";
 import './ExpenseItem.css';
 
 type ExpenseItemProps = {

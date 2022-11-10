@@ -1,10 +1,10 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import './App.css';
 import ExpenseForm from './components/ExpenseForm';
-import ExpenseItem from './components/ExpenseItem';
 import ExpensesFilter from './components/ExpensesFilter';
+import ExpensesList from './components/ExpensesList';
 
-type expsenseProps = {
+export type expsenseProps = {
   id: string;
   date: string;
   title: string;
@@ -60,9 +60,7 @@ function App() {
   })
   let expensesContent: any = <p className='no-content-found'>No Content Found</p>
 
-  if (filteredItems.length > 0) {
-    expensesContent = filteredItems.map(item => <ExpenseItem key={item.id} expenses={item}/>)
-  }
+  
   // useEffect(() => {
   //   expenses.filter((item) => {
   //     const extractDate = new Date(item.date)
@@ -81,7 +79,7 @@ function App() {
       <ExpenseForm onAddExpense={addExpenseHandler}/>
       <div className='expense-container__filter-expenses'>
         <ExpensesFilter onSelectedFilter={selectedFilterHandler} selectedYear={selectedYear}/>
-        {expensesContent}
+        <ExpensesList items={filteredItems}/>
       </div>
     </div>
   );

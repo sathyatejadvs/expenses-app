@@ -11,6 +11,7 @@ const ExpenseForm = (props: ExpenseFormProps) => {
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [date, setDate] = useState();
+  const [showExpenseForm, setShowExpenseForm] = useState(false);
 
   const onFormSubmitHandler = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
@@ -25,7 +26,7 @@ const ExpenseForm = (props: ExpenseFormProps) => {
       setAmount('')
       setDate(undefined)
     }
-
+    setShowExpenseForm(false)
   }
 
   const onTextChangeHandler = (event: any, title: string) => {
@@ -37,26 +38,41 @@ const ExpenseForm = (props: ExpenseFormProps) => {
       setDate(event.target.value)
     }
   }
+
+  const onAddExpenseHandler = () => {
+    console.log("onAddExpenseHandler")
+    setShowExpenseForm(true);
+  }
+  const onFormCancelHandler = () => {
+    setShowExpenseForm(false);
+  }
+  console.log(showExpenseForm, 'showExpenseForm')
   return (
-    <form onSubmit={onFormSubmitHandler} className='new-expense__form-container'>
-      <div className='new-expense__controls'>
-        <div className='new-expense__control'>
-          <label>Title</label>
-          <input type='text' value={title} onChange={event => onTextChangeHandler(event, 'title')}/>
+    <div>
+      {showExpenseForm && <form onSubmit={onFormSubmitHandler} className='new-expense__form-container'>
+        <div className='new-expense__controls'>
+          <div className='new-expense__control'>
+            <label>Title</label>
+            <input type='text' value={title} onChange={event => onTextChangeHandler(event, 'title')}/>
+          </div>
+          <div className='new-expense__control'>
+            <label>Amount</label>
+            <input type='number' min='0.01' step='0.01' value={amount} onChange={event => onTextChangeHandler(event, 'amount')}/>
+          </div>
+          <div className='new-expense__control'>
+            <label>Date</label>
+            <input type='date' min='2012-01-01' max='2022-12-31' value={date} onChange={event => onTextChangeHandler(event, 'date')}/>
+          </div>
         </div>
-        <div className='new-expense__control'>
-          <label>Amount</label>
-          <input type='number' min='0.01' step='0.01' value={amount} onChange={event => onTextChangeHandler(event, 'amount')}/>
+        <div className='new-expense__actions'>
+        <button className='new-expense__submit' onClick={onFormCancelHandler}>Cancel</button>
+          <button type='submit' className='new-expense__submit'>Add Expense</button>
         </div>
-        <div className='new-expense__control'>
-          <label>Date</label>
-          <input type='date' min='2012-01-01' max='2022-12-31' value={date} onChange={event => onTextChangeHandler(event, 'date')}/>
-        </div>
-      </div>
-      <div className='new-expense__actions'>
-        <button type='submit' className='new-expense__submit'>Add Expense</button>
-      </div>
-    </form>
+      </form>}
+      {!showExpenseForm && <div className='new-expense__add-expense__button-container'>
+        <button onClick={onAddExpenseHandler} className='new-expense__submit'>Add Expense</button>
+      </div>}
+    </div>
   );
 };
 
