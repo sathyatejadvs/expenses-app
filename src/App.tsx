@@ -1,9 +1,18 @@
+import { useState } from 'react';
 import './App.css';
+import ExpenseForm from './components/ExpenseForm';
 import ExpenseItem from './components/ExpenseItem';
+
+type expsenseProps = {
+  id: string;
+  date: string;
+  title: string;
+  amount: string;
+}
 
 function App() {
   
-  const expenses = [
+  const dummy_expenses = [
     {
       id: 1,
       date: new Date(2022, 1, 11),
@@ -29,17 +38,26 @@ function App() {
       amount: '$10k'
     }
   ]
+  const [expenses, setExpenses] = useState<expsenseProps>({
+    id: '',
+    date: '',
+    title: '',
+    amount: ''
+  });
+
+  const addExpenseHandler = (data: any) => {
+    console.log(data)
+    setExpenses(data);
+  };
+  console.log(expenses, 'ex');
+
   return (
     <div className='expense-container'>
       <h1 className='expense-container__header'>
         Expenses Chart
       </h1>
-      {expenses.map((item) => (
-        <div>
-          <ExpenseItem key={item.id} date={item.date} title={item.title} amount={item.amount}/>
-        </div>
-      )
-      )}
+      <ExpenseForm onAddExpense={addExpenseHandler}/>
+      {expenses.id ? <ExpenseItem expenses={expenses}/>: null}
     </div>
   );
 }
